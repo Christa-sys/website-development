@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Form</title>
+</head>
+<body>
+
+    <h1>Student Registration Form</h1>
+
+    <form>
+
+        <!-- Personal Information -->
+        <fieldset>
+            <legend>Personal Information</legend>
+
+            <label>First Name:</label><br>
+            <input type="text" name="firstname"><br><br>
+
+            <label>Last Name:</label><br>
+            <input type="text" name="lastname"><br><br>
+
+            <label>Email Address:</label><br>
+            <input type="email" name="email"><br><br>
+
+            <label>Phone Number:</label><br>
+            <input type="tel" name="phone"><br><br>
+
+            <label>Date of Birth:</label><br>
+            <input type="date" name="dob"><br><br>
+        </fieldset>
+
+        <br>
+
+        <!-- Gender -->
+        <fieldset>
+            <legend>Gender</legend>
+
+            <input type="radio" name="gender" value="male">
+            <label>Male</label><br>
+
+            <input type="radio" name="gender" value="female">
+            <label>Female</label><br>
+
+            <input type="radio" name="gender" value="other">
+            <label>Other</label>
+        </fieldset>
+
+        <br>
+
+        <!-- Course Selection -->
+        <fieldset>
+            <legend>Course Selection</legend>
+
+            <label>Select Your Course:</label><br>
+            <select name="course">
+                <option>Computer Science</option>
+                <option>Information Technology</option>
+                <option>Software Engineering</option>
+                <option>Cyber Security</option>
+                <option>Data Science</option>
+            </select>
+        </fieldset>
+
+        <br>
+
+        <!-- Skills (Checkboxes) -->
+        <fieldset>
+            <legend>Skills</legend>
+
+            <input type="checkbox" name="skills" value="html">
+            <label>HTML</label><br>
+
+            <input type="checkbox" name="skills" value="css">
+            <label>CSS</label><br>
+
+            <input type="checkbox" name="skills" value="javascript">
+            <label>JavaScript</label><br>
+
+            <input type="checkbox" name="skills" value="python">
+            <label>Python</label><br>
+
+            <input type="checkbox" name="skills" value="java">
+            <label>Java</label>
+        </fieldset>
+
+        <br>
+
+        <!-- Hobbies (Checkboxes) -->
+        <fieldset>
+            <legend>Hobbies</legend>
+
+            <input type="checkbox" name="hobby" value="reading">
+            <label>Reading</label><br>
+
+            <input type="checkbox" name="hobby" value="sports">
+            <label>Sports</label><br>
+
+            <input type="checkbox" name="hobby" value="music">
+            <label>Music</label><br>
+
+            <input type="checkbox" name="hobby" value="gaming">
+            <label>Gaming</label>
+        </fieldset>
+
+        <br>
+
+        <!-- Address -->
+        <fieldset>
+            <legend>Address</legend>
+
+            <label>Home Address:</label><br>
+            <textarea rows="5" cols="40"></textarea>
+        </fieldset>
+
+        <br>
+
+        <!-- Terms and Conditions -->
+        <input type="checkbox" name="terms">
+        <label>I agree to the Terms and Conditions</label>
+
+        <br><br>
+
+        <!-- Buttons -->
+        <input type="submit" value="Register">
+        <input type="reset" value="Clear Form">
+
+    </form>
+
+</body>
+</html>

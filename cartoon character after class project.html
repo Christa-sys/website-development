@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cartoon Character Page</title>
+
+    <style>
+        /* Universal Selector */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Body Selector */
+        body {
+            background-color: lightblue;
+            text-align: center;
+        }
+
+        /* Class Selector */
+        .title {
+            color: darkblue;
+            font-size: 40px;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        /* ID Selector */
+        #tagline {
+            color: purple;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Cartoon Face */
+        .face {
+            width: 250px;
+            height: 250px;
+            background-color: gold;
+            border-radius: 50%;
+            margin: auto;
+            position: relative;
+            border: 5px solid black;
+        }
+
+        /* Eyes */
+        .eye {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 70px;
+        }
+
+        .left-eye {
+            left: 60px;
+        }
+
+        .right-eye {
+            right: 60px;
+        }
+
+        /* Pupils */
+        .eye::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 11px;
+            left: 11px;
+        }
+
+        /* Nose */
+        .nose {
+            width: 20px;
+            height: 30px;
+            background-color: orange;
+            position: absolute;
+            top: 115px;
+            left: 115px;
+            border-radius: 10px;
+        }
+
+        /* Mouth */
+        .mouth {
+            width: 100px;
+            height: 50px;
+            border-bottom: 5px solid red;
+            border-radius: 0 0 100px 100px;
+            position: absolute;
+            top: 150px;
+            left: 75px;
+        }
+
+        /* Paragraph Selector */
+        p {
+            color: darkgreen;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        /* Hover Effect */
+        .title:hover {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="title">Funny Cartoon</h1>
+
+    <h3 id="tagline">Learning CSS Selectors and Colors</h3>
+
+    <div class="face">
+
+        <div class="eye left-eye"></div>
+
+        <div class="eye right-eye"></div>
+
+        <div class="nose"></div>
+
+        <div class="mouth"></div>
+
+    </div>
+
+    <p>
+        This cartoon character demonstrates the use of
+        colors, text styling, class selectors, ID selectors,
+        universal selectors, and hover effects in CSS.
+    </p>
+
+</body>
+</html> 
