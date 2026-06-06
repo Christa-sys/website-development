@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loops Example</title>
+</head>
+<body>
+
+  <h2>Months of the Year</h2>
+  <ul id="monthsList"></ul>
+
+  <h2>Numbers 1 to 12</h2>
+  <ul id="numbersList"></ul>
+
+  <script>
+    // Array of months
+    const months = [
+      "January", "February", "March", "April",
+      "May", "June", "July", "August",
+      "September", "October", "November", "December"
+    ];
+
+    // Loop for months
+    let monthsOutput = "";
+    for (let i = 0; i < months.length; i++) {
+      monthsOutput += "<li>" + months[i] + "</li>";
+    }
+    document.getElementById("monthsList").innerHTML = monthsOutput;
+
+    // Loop for numbers 1–12
+    let numbersOutput = "";
+    for (let i = 1; i <= 12; i++) {
+      numbersOutput += "<li>" + i + "</li>";
+    }
+    document.getElementById("numbersList").innerHTML = numbersOutput;
+  </script>
+
+</body>
+</html>
