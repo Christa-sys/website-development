@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zoo Manager</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container{
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1{
+            text-align: center;
+            color: darkgreen;
+        }
+
+        ul{
+            padding: 0;
+        }
+
+        li{
+            list-style: none;
+            background: lightgreen;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        button{
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #info{
+            margin-top: 15px;
+            padding: 10px;
+            background: #ffffcc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Zoo Manager</h1>
+
+    <input type="text" id="animalInput" placeholder="Enter animal name">
+
+    <button onclick="addAnimal()">Add Animal</button>
+    <button onclick="showDOMInfo()">Show DOM Relationships</button>
+
+    <h3>Zoo Animals</h3>
+
+    <ul id="zooList">
+        <li>Lion</li>
+        <li>Elephant</li>
+        <li>Giraffe</li>
+    </ul>
+
+    <div id="info"></div>
+</div>
+
+<script>
+
+function addAnimal() {
+    let animal = document.getElementById("animalInput").value;
+
+    if(animal === ""){
+        alert("Enter an animal name");
+        return;
+    }
+
+    let newAnimal = document.createElement("li");
+    newAnimal.textContent = animal;
+
+    document.getElementById("zooList").appendChild(newAnimal);
+
+    document.getElementById("animalInput").value = "";
+}
+
+function showDOMInfo() {
+
+    let zooList = document.getElementById("zooList");
+
+    // Parent Node
+    let parentNode = zooList.parentNode.tagName;
+
+    // First Child
+    let firstChild = zooList.firstElementChild.textContent;
+
+    // Last Child
+    let lastChild = zooList.lastElementChild.textContent;
+
+    // Sibling Example (Elephant)
+    let elephant = zooList.children[1];
+
+    let previousSibling =
+        elephant.previousElementSibling.textContent;
+
+    let nextSibling =
+        elephant.nextElementSibling.textContent;
+
+    document.getElementById("info").innerHTML = `
+        <h3>DOM Node Information</h3>
+
+        <p><strong>Parent Node of UL:</strong> ${parentNode}</p>
+
+        <p><strong>First Child:</strong> ${firstChild}</p>
+
+        <p><strong>Last Child:</strong> ${lastChild}</p>
+
+        <p><strong>Selected Child:</strong> ${elephant.textContent}</p>
+
+        <p><strong>Previous Sibling:</strong> ${previousSibling}</p>
+
+        <p><strong>Next Sibling:</strong> ${nextSibling}</p>
+    `;
+}
+
+</script>
+
+</body>
+</html>

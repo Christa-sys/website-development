@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subject Manager</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container{
+            width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1{
+            text-align: center;
+            color: navy;
+        }
+
+        button{
+            padding: 10px;
+            margin: 5px;
+        }
+
+        li{
+            list-style: none;
+            background: lightblue;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #result{
+            margin-top: 15px;
+            padding: 10px;
+            background: #ffffcc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Subject Manager</h1>
+
+    <input type="text" id="subjectInput" placeholder="Enter Subject">
+
+    <button onclick="addSubject()">Add Subject</button>
+    <button onclick="removeSubject()">Remove Last Subject</button>
+    <button onclick="showInfo()">Show Subject Info</button>
+
+    <h3>Available Subjects</h3>
+
+    <ul id="subjectList"></ul>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+
+    // Array of subjects
+    let subjects = [
+        "Mathematics",
+        "English",
+        "Biology",
+        "Chemistry"
+    ];
+
+    // Display subjects in the DOM
+    function displaySubjects() {
+
+        let list = document.getElementById("subjectList");
+
+        list.innerHTML = "";
+
+        for(let i = 0; i < subjects.length; i++) {
+
+            let li = document.createElement("li");
+
+            li.textContent =
+            "Index " + i + " : " + subjects[i];
+
+            list.appendChild(li);
+        }
+    }
+
+    // Add subject
+    function addSubject() {
+
+        let subject =
+        document.getElementById("subjectInput").value;
+
+        if(subject !== "") {
+
+            subjects.push(subject);
+
+            displaySubjects();
+
+            document.getElementById("subjectInput").value = "";
+        }
+    }
+
+    // Remove subject using pop()
+    function removeSubject() {
+
+        let removed = subjects.pop();
+
+        document.getElementById("result").innerHTML =
+        "<b>Removed Subject:</b> " + removed;
+
+        displaySubjects();
+    }
+
+    // Show array information
+    function showInfo() {
+
+        let allSubjects = subjects.join(" | ");
+
+        document.getElementById("result").innerHTML =
+
+        "<h3>Array Information</h3>" +
+
+        "<p><b>All Subjects (join):</b><br>" +
+        allSubjects + "</p>" +
+
+        "<p><b>Index 0:</b> " +
+        subjects[0] + "</p>" +
+
+        "<p><b>Index 1:</b> " +
+        subjects[1] + "</p>" +
+
+        "<p><b>Total Subjects:</b> " +
+        subjects.length + "</p>";
+    }
+
+    // Call Stack Example
+    function startProgram() {
+        displaySubjects();
+    }
+
+    startProgram();
+
+</script>
+
+</body>
+</html>
