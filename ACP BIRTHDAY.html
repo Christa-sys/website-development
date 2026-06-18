@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Countdown</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff6ec4,#7873f5);
+    overflow:hidden;
+}
+
+.container{
+    text-align:center;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 0 25px rgba(255,255,255,0.4);
+    color:white;
+    z-index:2;
+}
+
+h1{
+    font-size:3rem;
+    margin-bottom:20px;
+    text-shadow:0 0 10px white;
+}
+
+h2{
+    margin-bottom:25px;
+}
+
+.countdown{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.box{
+    width:120px;
+    padding:20px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.2);
+    box-shadow:0 0 15px rgba(255,255,255,0.4);
+}
+
+.box span{
+    display:block;
+    font-size:2rem;
+    font-weight:bold;
+}
+
+.box p{
+    margin-top:10px;
+}
+
+.message{
+    margin-top:20px;
+    font-size:1.5rem;
+    font-weight:bold;
+}
+
+/* Balloons */
+.balloon{
+    position:absolute;
+    width:70px;
+    height:90px;
+    border-radius:50%;
+    animation:float 8s infinite;
+}
+
+.balloon::after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:70px;
+    background:white;
+    left:50%;
+    top:90px;
+}
+
+.red{background:#ff4d6d; left:10%;}
+.blue{background:#4d96ff; left:30%; animation-delay:2s;}
+.yellow{background:#ffd93d; left:60%; animation-delay:4s;}
+.green{background:#6bcb77; left:85%; animation-delay:1s;}
+
+@keyframes float{
+    0%{
+        transform:translateY(100vh);
+    }
+    100%{
+        transform:translateY(-150px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="balloon red"></div>
+<div class="balloon blue"></div>
+<div class="balloon yellow"></div>
+<div class="balloon green"></div>
+
+<div class="container">
+    <h1>🎂 Birthday Countdown 🎉</h1>
+    <h2>Countdown to June 24th</h2>
+
+    <div class="countdown">
+        <div class="box">
+            <span id="days">0</span>
+            <p>Days</p>
+        </div>
+
+        <div class="box">
+            <span id="hours">0</span>
+            <p>Hours</p>
+        </div>
+
+        <div class="box">
+            <span id="minutes">0</span>
+            <p>Minutes</p>
+        </div>
+
+        <div class="box">
+            <span id="seconds">0</span>
+            <p>Seconds</p>
+        </div>
+    </div>
+
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+
+// Countdown loop
+function birthdayCountdown() {
+
+    let today = new Date();
+    let year = today.getFullYear();
+
+    // June 24 of current year
+    let birthday = new Date(year, 5, 24);
+
+    // If birthday has passed, use next year
+    if(today > birthday){
+        birthday = new Date(year + 1, 5, 24);
+    }
+
+    let difference = birthday - today;
+
+    let days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    document.getElementById("seconds").innerHTML = seconds;
+
+    // Birthday message
+    if(days === 0 && hours === 0 && minutes === 0 && seconds === 0){
+        document.getElementById("message").innerHTML =
+        "🎉 HAPPY BIRTHDAY! 🎂🎁🎈";
+    }
+}
+
+// Loop every second
+setInterval(birthdayCountdown, 1000);
+
+// Initial call
+birthdayCountdown();
+
+</script>
+
+</body>
+</html>

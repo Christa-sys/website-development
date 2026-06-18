@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Countdown</title>
+    <style>
+        :root {
+            --primary: #ff758c;
+            --secondary: #ff7eb3;
+            --bg: #0b091a;
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --text: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Festive Background Canvas */
+        #confetti-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #8b8a9f;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Countdown Grid */
+        .countdown-wrapper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .time-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem 0.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.3s ease;
+        }
+
+        .time-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(180deg, #ffffff, #a5a1b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 117, 140, 0.3);
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a5a1b8;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .countdown-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            h1 { font-size: 2rem; }
+            .number { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        <h1 id="header-text">Birthday Countdown</h1>
+        <p class="subtitle">Counting down the moments to June 24th</p>
+        
+        <div class="countdown-wrapper">
+            <div class="time-box">
+                <div class="number" id="days">00</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="hours">00</div>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="minutes">00</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="seconds">00</div>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Target birthday configuration
+        const BIRTHDAY_MONTH = 5; // June (0-indexed in JS Dates: 0=Jan, 5=June)
+        const BIRTHDAY_DAY = 24;
+
+        function getNextBirthday() {
+            const now = new Date();
+            let currentYear = now.getFullYear();
+            
+            // Loop array simulation: check target years sequentially starting from this year
+            const candidateYears = [currentYear, currentYear + 1];
+            
+            for (let i = 0; i < candidateYears.length; i++) {
+                const targetYear = candidateYears[i];
+                const targetDate = new Date(targetYear, BIRTHDAY_MONTH, BIRTHDAY_DAY, 0, 0, 0);
+                
+                // If this target date is still in the future, return it
+                if (targetDate - now > 0) {
+                    return targetDate;
+                }
+            }
+            return new Date(currentYear, BIRTHDAY_MONTH, BIRTHDAY_DAY);
+        }
+
+        const targetBirthday = getNextBirthday();
+
+        // DOM elements
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        const headerText = document.getElementById('header-text');
+
+        function updateCountdown() {
+            const now = new Date();
+            const difference = targetBirthday - now;
+
+            if (difference <= 0) {
+                headerText.innerText = "🎉 Happy Birthday! 🎉";
+                daysEl.innerText = "00";
+                hoursEl.innerText = "00";
+                minutesEl.innerText = "00";
+                secondsEl.innerText = "00";
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            // Time calculations
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            // Output values with leading zeros
+            daysEl.innerText = d < 10 ? '0' + d : d;
+            hoursEl.innerText = h < 10 ? '0' + h : h;
+            minutesEl.innerText = m < 10 ? '0' + m : m;
+            secondsEl.innerText = s < 10 ? '0' + s : s;
+        }
+
+        // Run countdown immediately and update every second
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        // --- Visual FX: Canvas Confetti Background ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettis = [];
+        const confettiCount = 50;
+        const colors = ['#ff758c', '#ff7eb3', '#8e2de2', '#4a00e0', '#fbc531'];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Loop to initialize confetti particle objects
+        for (let i = 0; i < confettiCount; i++) {
+            confettis.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                r: Math.random() * 6 + 4,
+                d: Math.random() * confettiCount,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                tilt: Math.random() * 10 - 5,
+                tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                tiltAngle: 0
+            });
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Loop over particles to update positions and redraw
+            confettis.forEach((p, index) => {
+                p.tiltAngle += p.tiltAngleIncremental;
+                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 3;
+                p.x += Math.sin(p.tiltAngle);
+                p.tilt = Math.sin(p.tiltAngle - index / 3) * 15;
+
+                // Recycle particle if it falls past bottom screen edge
+                if (p.y > canvas.height) {
+                    p.x = Math.random() * canvas.width;
+                    p.y = -20;
+                    p.tilt = Math.random() * 10 - 5;
+                }
+
+                ctx.beginPath();
+                ctx.lineWidth = p.r;
+                ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                ctx.stroke();
+            });
+
+            requestAnimationFrame(drawConfetti);
+        }
+        drawConfetti();
+    </script>
+</body>
+</html>
