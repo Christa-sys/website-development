@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Superhero Power Cards</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            text-align: center;
+            padding: 20px;
+            color: white;
+        }
+
+        h1{
+            margin-bottom: 30px;
+        }
+
+        .container{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card{
+            background: white;
+            color: black;
+            width: 250px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+
+        .card:hover{
+            transform: scale(1.05);
+        }
+
+        .hero-name{
+            color: #2a5298;
+        }
+
+        .power{
+            font-weight: bold;
+            color: crimson;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🦸 My Superhero Power Cards 🦸</h1>
+
+    <div class="container" id="heroCards"></div>
+
+    <script>
+
+        // Superhero Class
+        class Superhero {
+
+            constructor(name, power, city) {
+                this.name = name;
+                this.power = power;
+                this.city = city;
+            }
+
+            // Method to display hero card
+            displayCard() {
+                return `
+                    <div class="card">
+                        <h2 class="hero-name">${this.name}</h2>
+                        <p><strong>Power:</strong> <span class="power">${this.power}</span></p>
+                        <p><strong>City:</strong> ${this.city}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Creating superhero objects
+        const hero1 = new Superhero(
+            "Thunder Man",
+            "Lightning Control",
+            "Metro City"
+        );
+
+        const hero2 = new Superhero(
+            "Shadow Girl",
+            "Invisibility",
+            "Dark Town"
+        );
+
+        const hero3 = new Superhero(
+            "Fire Hero",
+            "Fire Blast",
+            "Sun City"
+        );
+
+        // Displaying cards
+        const heroCards = document.getElementById("heroCards");
+
+        heroCards.innerHTML =
+            hero1.displayCard() +
+            hero2.displayCard() +
+            hero3.displayCard();
+
+    </script>
+
+</body>
+</html>
