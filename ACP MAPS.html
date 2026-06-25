@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Array and Map Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            text-align: center;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid darkblue;
+            border-radius: 10px;
+            padding: 15px;
+            width: 180px;
+            box-shadow: 2px 2px 8px gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Superhero Array and Map()</h1>
+
+    <div class="container" id="heroContainer"></div>
+
+    <script>
+        // Array of superheroes
+        const heroes = [
+            "Batman",
+            "Superman",
+            "Wonder Woman",
+            "Spider-Man",
+            "Iron Man"
+        ];
+
+        // Using map() to create HTML cards
+        const heroCards = heroes.map(hero => {
+            return `
+                <div class="card">
+                    <h3>${hero}</h3>
+                    <p>Superhero Power Card</p>
+                </div>
+            `;
+        });
+
+        // Display cards on webpage
+        document.getElementById("heroContainer").innerHTML = heroCards.join("");
+    </script>
+
+</body>
+</html>
