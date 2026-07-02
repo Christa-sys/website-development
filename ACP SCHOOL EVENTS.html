@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Event Data Viewer</title>
+
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#4facfe,#00f2fe);
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:80%;
+    max-width:700px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,.3);
+    text-align:center;
+}
+
+h1{
+    color:#1565c0;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    background:#1565c0;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0d47a1;
+}
+
+#loading{
+    margin-top:20px;
+    color:red;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.card{
+    margin-top:20px;
+    padding:15px;
+    border-left:6px solid #1565c0;
+    background:#e3f2fd;
+    border-radius:10px;
+    text-align:left;
+}
+
+.card h2{
+    color:#1565c0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🎓 School Event Data Viewer</h1>
+
+    <button id="loadBtn">Load School Events</button>
+
+    <p id="loading"></p>
+
+    <div id="events"></div>
+
+</div>
+
+<script>
+
+const loadBtn = document.getElementById("loadBtn");
+const loading = document.getElementById("loading");
+const eventsDiv = document.getElementById("events");
+
+loadBtn.addEventListener("click", loadEvents);
+
+function loadEvents(){
+
+    eventsDiv.innerHTML = "";
+    loading.innerHTML = "Loading school events...";
+
+    // Simulate loading data from a server
+    setTimeout(function(){
+
+        // JavaScript Object
+        const schoolEvents = [
+            {
+                event:"Science Fair",
+                date:"August 15, 2026",
+                venue:"School Hall",
+                organizer:"Science Club"
+            },
+            {
+                event:"Football Competition",
+                date:"September 3, 2026",
+                venue:"School Field",
+                organizer:"Sports Department"
+            },
+            {
+                event:"Graduation Ceremony",
+                date:"October 20, 2026",
+                venue:"Main Auditorium",
+                organizer:"School Management"
+            }
+        ];
+
+        // Convert object to JSON
+        const jsonData = JSON.stringify(schoolEvents);
+        console.log("JSON Data:");
+        console.log(jsonData);
+
+        // Convert JSON back to JavaScript object
+        const parsedData = JSON.parse(jsonData);
+
+        loading.innerHTML = "";
+
+        // Display event details
+        parsedData.forEach(function(event){
+
+            eventsDiv.innerHTML += `
+                <div class="card">
+                    <h2>${event.event}</h2>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Venue:</strong> ${event.venue}</p>
+                    <p><strong>Organizer:</strong> ${event.organizer}</p>
+                </div>
+            `;
+
+        });
+
+    }, 3000);
+
+}
+
+</script>
+
+</body>
+</html>
