@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perimeter Calculator</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(to right,#36d1dc,#5b86e5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    width:400px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.3);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+select,input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#007BFF;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+#result{
+    margin-top:20px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    color:green;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Perimeter Calculator</h1>
+
+<label>Select Shape</label>
+
+<select id="shape" onchange="changeFields()">
+<option value="rectangle">Rectangle</option>
+<option value="square">Square</option>
+<option value="triangle">Triangle</option>
+</select>
+
+<label id="label1">Length</label>
+<input type="number" id="value1">
+
+<label id="label2">Width</label>
+<input type="number" id="value2">
+
+<button onclick="calculatePerimeter()">Calculate</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function changeFields(){
+
+let shape=document.getElementById("shape").value;
+
+if(shape=="square"){
+    document.getElementById("label1").innerHTML="Side";
+    document.getElementById("label2").style.display="none";
+    document.getElementById("value2").style.display="none";
+}
+else if(shape=="rectangle"){
+    document.getElementById("label1").innerHTML="Length";
+    document.getElementById("label2").innerHTML="Width";
+    document.getElementById("label2").style.display="block";
+    document.getElementById("value2").style.display="block";
+}
+else{
+    document.getElementById("label1").innerHTML="Side";
+    document.getElementById("label2").style.display="none";
+    document.getElementById("value2").style.display="none";
+}
+
+}
+
+function calculatePerimeter(){
+
+let shape=document.getElementById("shape").value;
+
+let value1=Number(document.getElementById("value1").value);
+let value2=Number(document.getElementById("value2").value);
+
+let perimeter=0;
+
+if(shape=="rectangle"){
+    perimeter=2*(value1+value2);
+}
+else if(shape=="square"){
+    perimeter=4*value1;
+}
+else{
+    perimeter=3*value1;
+}
+
+document.getElementById("result").innerHTML=
+"Perimeter = " + perimeter;
+
+}
+
+changeFields();
+
+</script>
+
+</body>
+</html>
