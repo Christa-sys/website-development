@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App - Stopwatch</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            width: 400px;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #243b55;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .display {
+            background: #141e30;
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            padding: 25px 10px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            color: white;
+            transition: 0.3s;
+        }
+
+        #start {
+            background: #28a745;
+        }
+
+        #pause {
+            background: #ffc107;
+            color: black;
+        }
+
+        #reset {
+            background: #dc3545;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            opacity: 0.85;
+        }
+
+        .status {
+            margin-top: 20px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Counter App</h1>
+
+        <p class="subtitle">Stopwatch using JS</p>
+
+        <div class="display">
+            <span id="hours">00</span> :
+            <span id="minutes">00</span> :
+            <span id="seconds">00</span> .
+            <span id="milliseconds">00</span>
+        </div>
+
+        <div class="buttons">
+            <button id="start" onclick="startTimer()">Start</button>
+            <button id="pause" onclick="pauseTimer()">Pause</button>
+            <button id="reset" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <p class="status" id="status">Ready to start</p>
+
+    </div>
+
+
+    <script>
+
+        // Counter variables
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
+        let milliseconds = 0;
+
+        // Timer variable
+        let timer = null;
+
+        // Start the stopwatch
+        function startTimer() {
+
+            if (timer !== null) {
+                return;
+            }
+
+            timer = setInterval(function () {
+
+                milliseconds++;
+
+                if (milliseconds === 100) {
+                    milliseconds = 0;
+                    seconds++;
+                }
+
+                if (seconds === 60) {
+                    seconds = 0;
+                    minutes++;
+                }
+
+                if (minutes === 60) {
+                    minutes = 0;
+                    hours++;
+                }
+
+                updateDisplay();
+
+            }, 10);
+
+            document.getElementById("status").textContent = "Stopwatch running...";
+        }
+
+
+        // Pause the stopwatch
+        function pauseTimer() {
+
+            clearInterval(timer);
+            timer = null;
+
+            document.getElementById("status").textContent = "Stopwatch paused";
+        }
+
+
+        // Reset the stopwatch
+        function resetTimer() {
+
+            clearInterval(timer);
+            timer = null;
+
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+            milliseconds = 0;
+
+            updateDisplay();
+
+            document.getElementById("status").textContent = "Ready to start";
+        }
+
+
+        // Update the numbers on the screen
+        function updateDisplay() {
+
+            document.getElementById("hours").textContent =
+                String(hours).padStart(2, "0");
+
+            document.getElementById("minutes").textContent =
+                String(minutes).padStart(2, "0");
+
+            document.getElementById("seconds").textContent =
+                String(seconds).padStart(2, "0");
+
+            document.getElementById("milliseconds").textContent =
+                String(milliseconds).padStart(2, "0");
+        }
+
+    </script>
+
+</body>
+</html>

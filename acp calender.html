@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today Calendar</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 30px auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #222;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .calendar {
+            margin-top: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .day {
+            font-size: 30px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .date {
+            font-size: 70px;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0;
+        }
+
+        .month {
+            font-size: 28px;
+            color: #555;
+        }
+
+        .year {
+            font-size: 24px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .clock {
+            margin-top: 25px;
+            padding: 15px;
+            background: #222;
+            color: white;
+            border-radius: 8px;
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Today Calendar</h1>
+
+        <h2>Digital Clock using JS</h2>
+
+        <p>
+            In this project, you will create a JavaScript application
+            to display the current date, month, year and day.
+        </p>
+
+        <div class="calendar">
+
+            <div class="day" id="day"></div>
+
+            <div class="date" id="date"></div>
+
+            <div class="month" id="month"></div>
+
+            <div class="year" id="year"></div>
+
+            <div class="clock" id="clock"></div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function updateCalendar() {
+
+            // Create a new Date object
+            const today = new Date();
+
+            // Get day
+            const days = [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+            ];
+
+            // Get month
+            const months = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ];
+
+            const currentDay = days[today.getDay()];
+            const currentDate = today.getDate();
+            const currentMonth = months[today.getMonth()];
+            const currentYear = today.getFullYear();
+
+            // Display calendar
+            document.getElementById("day").textContent = currentDay;
+            document.getElementById("date").textContent = currentDate;
+            document.getElementById("month").textContent = currentMonth;
+            document.getElementById("year").textContent = currentYear;
+
+            // Get time
+            let hours = today.getHours();
+            let minutes = today.getMinutes();
+            let seconds = today.getSeconds();
+
+            // Add zero before single numbers
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            const time = `${hours}:${minutes}:${seconds}`;
+
+            document.getElementById("clock").textContent = time;
+        }
+
+        // Run immediately
+        updateCalendar();
+
+        // Update every second
+        setInterval(updateCalendar, 1000);
+
+    </script>
+
+</body>
+</html>
